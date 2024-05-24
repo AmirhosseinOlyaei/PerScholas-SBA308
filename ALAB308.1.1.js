@@ -1,7 +1,6 @@
 // Data Manipulation with JavaScript
 
 // Part 1: Math Problems
-
 // Example validation code
 const n1 = 10;
 const n2 = 15;
