@@ -1,7 +1,7 @@
 console.log("Part 1: Thinking Functionally");
 
 // Best Choice:
-// The choice depends on the context and audience. If you prefer readability and maintainability, `reverseString` or `reverseString2` might be best. If you want to show fundamental programming techniques or work in an environment where recursion is expected, `reverseString4` or `reverseString5` would be suitable. `reverseString3` is good for explicit control but might be considered verbose.
+// The choice depends on the context and audience. If we prefer readability and maintainability, `reverseString` or `reverseString2` might be best. If we want to show fundamental programming techniques or work in an environment where recursion is expected, `reverseString4` or `reverseString5` would be suitable. `reverseString3` is good for explicit control but might be considered verbose.
 
 // Writing Functions for Specific Tasks
 // 1. Sum of an Array of Numbers
@@ -92,3 +92,84 @@ console.log("\n");
 console.log("Task 5: Calculate the Average Age");
 const averageAge = totalAge / people.length;
 console.log("Average Age:", averageAge.toFixed(2));
+
+console.log("\n");
+console.log("Part 3: Thinking Critically");
+console.log("Function 1: Increment Age Field of an Object (Modify In-place)");
+function incrementAge(obj) {
+  // Increment age or set to 0 if not present
+  if (obj.hasOwnProperty("age")) {
+    obj.age += 1;
+  } else {
+    obj.age = 0;
+  }
+
+  // Update the updated_at field
+  obj.updated_at = new Date();
+}
+
+// Test the function
+const person1 = { id: "42", name: "Bruce", occupation: "Knight" };
+incrementAge(person1);
+console.log("Modified Object:", person1);
+
+console.log("\n");
+console.log(
+  "Function 2: Make a Copy of an Object and Increment the Age Field (Without Affecting Original)"
+);
+function copyAndIncrementAge(obj) {
+  const newObj = { ...obj };
+  incrementAge(newObj);
+  return newObj;
+}
+
+// Test the function
+const person2 = { id: "42", name: "Bruce", occupation: "Knight" };
+const copiedPerson = copyAndIncrementAge(person2);
+console.log("Copied Object:", copiedPerson);
+console.log("Original Object:", person2);
+
+console.log("\n");
+console.log("Thought Experiment: Handling Date Object Modification");
+console.log("Example of the Potential Issue:");
+const originalDate = new Date();
+const copyDate = originalDate; // Both refer to the same object
+copyDate.setTime(copyDate.getTime() + 10000); // Modify the date
+
+console.log("Original Date:", originalDate); // Modified date
+console.log("Copy Date:", copyDate); // Modified date
+
+console.log("\n");
+console.log("Preventing the Issue:");
+function safeCopyAndIncrementAge(obj) {
+  const newObj = { ...obj };
+
+  if (newObj.hasOwnProperty("age")) {
+    newObj.age += 1;
+  } else {
+    newObj.age = 0;
+  }
+
+  // Create a new Date object to avoid reference issues
+  newObj.updated_at = new Date();
+
+  return newObj;
+}
+
+// Test the function
+const person3 = {
+  id: "57",
+  name: "Bob",
+  occupation: "Fry Cook",
+  updated_at: new Date(),
+};
+const modifiedPerson3 = safeCopyAndIncrementAge(person3);
+modifiedPerson3.updated_at.setTime(
+  modifiedPerson3.updated_at.getTime() + 1000000
+);
+
+console.log("Original Object Date:", person3.updated_at);
+console.log("Modified Copy Date:", modifiedPerson3.updated_at);
+
+console.log("\n");
+console.log("Part 4: Thinking Practically");
